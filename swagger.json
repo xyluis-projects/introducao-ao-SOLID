@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Basic api",
+    "description": "A simple and basic api to manage users",
+    "version": "1.0.0",
+    "contact": {
+      "email": "luis@ignite.com.br"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "basicAuth": {
+          "name": "user_id",
+          "in": "header",
+          "description": "Admin user id",
+          "type": "apiKey"
+      }
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a user",
+        "description": "Create a new user on database",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string"}
+                },
+                "example": {
+                  "name": "Luis",
+                  "email": "luis@ignite.com.br"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "User already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List users",
+        "description": "List all users saved on database",
+        "parameters": {
+          "name": "user_id",
+          "in": "header",
+          "description": "User ID on header",
+          "required": true,
+          "allowEmptyValue": false
+        },
+        "responses": {}
+      }
+    }
+  }
+}
